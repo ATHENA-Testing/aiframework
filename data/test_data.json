@@ -1,0 +1,13 @@
+{
+    "search_terms": [
+        "Python Selenium BDD",
+        "AI in Automation",
+        "Behave Gherkin Tutorial"
+    ],
+    "users": {
+        "admin": {
+            "username": "admin_user",
+            "password": "secure_password"
+        }
+    }
+}

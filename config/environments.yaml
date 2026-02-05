@@ -1,0 +1,12 @@
+staging:
+  url: "https://staging.example.com"
+  username: "admin"
+  password: "password123"
+production:
+  url: "https://www.example.com"
+  username: "user"
+  password: "password456"
+dev:
+  url: "https://dev.example.com"
+  username: "devuser"
+  password: "devpassword"

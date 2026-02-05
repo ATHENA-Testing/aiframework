@@ -1,0 +1,9 @@
+browser: "chrome"
+headless: false
+timeout: 30
+retry_count: 2
+screenshot_on_failure: true
+base_url: "https://www.example.com"
+parallel_execution: false
+log_level: "INFO"
+allure_report: true

@@ -65,32 +65,17 @@ To set up the framework, follow these steps:
 
 ## Running Tests
 
-Tests are executed using Behave. The `run_bdd.sh` script simplifies execution and Allure report generation.
+Tests are executed using Behave. The framework provides cross-platform scripts for both Linux/Mac and Windows.
 
-1.  **Activate virtual environment:**
-    ```bash
-    source venv/bin/activate
-    ```
+### On Linux/Mac:
+1.  **Activate virtual environment:** `source venv/bin/activate`
+2.  **Run tests:** `./scripts/run_bdd.sh`
+3.  **Generate Allure Report:** `./scripts/generate_allure.sh`
 
-2.  **Run all features:**
-    ```bash
-    ./scripts/run_bdd.sh
-    ```
-
-3.  **Run specific feature:**
-    ```bash
-    behave features/example.feature
-    ```
-
-4.  **Generate Allure Report:**
-    After running tests, generate the Allure report:
-    ```bash
-    ./scripts/generate_allure.sh
-    ```
-    Then open the report in your browser:
-    ```bash
-    allure serve reports/allure-results
-    ```
+### On Windows:
+1.  **Activate virtual environment:** `venv\Scripts\activate`
+2.  **Run tests:** `scripts\run_bdd.bat`
+3.  **Generate Allure Report:** `scripts\generate_allure.bat`
 
 ## AI-Powered Intelligent Automation Engine
 
@@ -99,7 +84,10 @@ This framework includes a state-of-the-art AI engine that handles the entire lif
 ### 1. Requirement-to-Code Generation
 Process user stories, acceptance criteria, and test data into complete automation suites.
 - **Define Requirements:** Add a `.txt` file to `requirements/` using the provided template.
-- **Run Generator:** Execute `./scripts/ai_generate.sh`. The AI will create the `.feature` file, step definitions, and Page Object methods.
+- **Run Generator:** 
+  - **Linux/Mac:** `./scripts/ai_generate.sh`
+  - **Windows:** `scripts\ai_generate.bat`
+  The AI will create the `.feature` file, step definitions, and Page Object methods.
 
 ### 2. Iterative Feature Synchronization
 If you update a step in an existing `.feature` file, the framework detects the change and synchronizes your code.

@@ -15,9 +15,10 @@ def after_scenario(context, scenario):
     if scenario.status == "failed":
         if context.config.get('screenshot_on_failure', True):
             import os
-            if not os.path.exists("reports/screenshots"):
-                os.makedirs("reports/screenshots")
-            screenshot_path = f"reports/screenshots/{scenario.name.replace(' ', '_')}.png"
+            screenshot_dir = os.path.join("reports", "screenshots")
+            if not os.path.exists(screenshot_dir):
+                os.makedirs(screenshot_dir)
+            screenshot_path = os.path.join("reports", "screenshots", f"{scenario.name.replace(' ', '_')}.png")
             context.driver.save_screenshot(screenshot_path)
             logger.error(f"Scenario failed. Screenshot saved to {screenshot_path}")
     

@@ -17,8 +17,9 @@ class AICodeGenerator:
 
     def get_existing_methods(self, directory="pages"):
         methods = []
-        for file in glob.glob(f"{directory}/*.py"):
-            with open(file, 'r') as f:
+        pattern = os.path.join(directory, "*.py")
+        for file in glob.glob(pattern):
+            with open(file, 'r', encoding='utf-8') as f:
                 try:
                     tree = ast.parse(f.read())
                     for node in ast.walk(tree):
@@ -30,8 +31,9 @@ class AICodeGenerator:
 
     def get_step_definitions_map(self, directory="features/steps"):
         step_map = {}
-        for file in glob.glob(f"{directory}/*.py"):
-            with open(file, 'r') as f:
+        pattern = os.path.join(directory, "*.py")
+        for file in glob.glob(pattern):
+            with open(file, 'r', encoding='utf-8') as f:
                 content = f.read()
                 pattern = r'(@(?:given|when|then)\(.*?\)[\s\S]*?def\s+\w+\(context.*?\):[\s\S]*?)(?=\n@|\ndef|\Z)'
                 matches = re.findall(pattern, content)
@@ -99,8 +101,9 @@ class AICodeGenerator:
                         self.append_to_file(target_steps, step_code)
 
     def process_smart_prompts(self, directory="pages"):
-        for file in glob.glob(f"{directory}/*.py"):
-            with open(file, 'r') as f:
+        pattern = os.path.join(directory, "*.py")
+        for file in glob.glob(pattern):
+            with open(file, 'r', encoding='utf-8') as f:
                 content = f.read()
             
             prompts = re.findall(r'# AI: (.*)', content)
@@ -152,12 +155,14 @@ class AICodeGenerator:
         self.rag.rebuild_index()
         
         # 1. Requirements to Features
-        req_files = glob.glob("requirements/*.txt")
+        req_pattern = os.path.join("requirements", "*.txt")
+        req_files = glob.glob(req_pattern)
         for req in req_files:
             self.generate_feature_from_requirement(req)
         
         # 2. Features to Code (Sync)
-        feature_files = glob.glob("features/*.feature")
+        feature_pattern = os.path.join("features", "*.feature")
+        feature_files = glob.glob(feature_pattern)
         for feature in feature_files:
             self.sync_feature_to_code(feature)
             

@@ -1,0 +1,22 @@
+#ai:
+#  enabled: true
+#  mode: "assist"   # off | assist | generate | review
+#  provider: "openai" # openai | azure | ollama | custom
+#  model: "gpt-4"
+#  version: "latest"
+#  api_key: "your_api_key_here"
+#  base_url: "https://api.openai.com/v1"
+#  azure:
+#    endpoint: "https://your-endpoint.openai.azure.com/"
+#    deployment_name: "your-deployment"
+#  ollama:
+#    host: "http://localhost:11434"
+
+ai:
+  enabled: true
+  mode: "generate"
+  provider: ollama
+  model: mistral
+  version: 7b
+  ollama:
+    host: "http://localhost:11434"

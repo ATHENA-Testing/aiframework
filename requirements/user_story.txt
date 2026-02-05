@@ -1,0 +1,15 @@
+User Story: [Enter Title Here]
+
+Description:
+As a [role],
+I want to [action],
+So that [benefit]
+
+Acceptance Criteria:
+1. [Criteria 1]
+2. [Criteria 2]
+3. [Criteria 3]
+
+Test Data:
+- [Key]: [Value]
+- [Key]: [Value]

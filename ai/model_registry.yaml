@@ -1,0 +1,14 @@
+models:
+  openai:
+    gpt-4:
+      versions: [latest, gpt-4-turbo]
+    gpt-3.5-turbo:
+      versions: [latest, 0125]
+  ollama:
+    mistral:
+      versions: [latest, 7b]
+    llama3:
+      versions: [8b, 70b]
+  azure:
+    gpt-4:
+      versions: [default]

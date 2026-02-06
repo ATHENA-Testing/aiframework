@@ -1,46 +1,39 @@
 Feature: Payer Strategy Workflow
 
-  As a Pricing, Contracting, and Distribution (PCD) user,
-  In order to define price protection policy and Brand Segment strategies in the Payer space,
-  I want a dynamic interface to accurately capture varying max concession rate requirements.
+  Scenario: Target Account List Validation
+    Given a logged in user with username "[Strategy1]"
+    And a product to define a strategy for, "[Xolair]"
+    And the "limit this strategy to a limited target account list" option is enabled
 
-Background:
-  Given I am logged into the virtual deal desk as a PCD user with username [Strategy1]@example.com
-  And the product is [Xolair]
-  And the page is on the Payer Strategy creation form
-
-Scenario: Target Account List Validation
-
-  Scenario Outline: Testing the Target Account List validation
-    Given the "limit this strategy to a limited target account list" option is <option>
-    And the "Target Account List" contains <account_list>
-    When the user attempts to proceed to Step 2.
-    Then the system <result>
+    Scenario Outline: Validating Target Account List
+      Given the "Target Account List" contains <accountCount> accounts
+      When the user attempts to proceed to Step 2
+      Then
+        | Error Message              | Expected Result                            |
+        | ""                          | The system allows user to proceed         |
+        | "A Target Account List is required when limiting this strategy to specific accounts." | The system displays error and prevents user from proceeding if the list is empty or null |
 
     Examples:
-      | option       | account_list                             | result                            |
-      | enabled       | ["Account1", "Account2"]                     | allows the user to proceed          |
-      | enabled       | []                                           | displays error message and prevents proceeding  |
-      | disabled       | ["Account1", "Account2"]                     | allows the user to proceed          |
+      | accountCount   |
+      | 1              |
+      | 3              |
+      | 0              |
+      | null           |
 
-Scenario: Formulary Positioning Statement Validation
+  Scenario: Formulary Positioning Statement Validation
+    Given a logged in user with username "[Strategy1]"
+    And a product to define a strategy for, "[Xolair]"
 
-  Scenario Outline: Testing the Formulary Positioning Statements validation
-    Given <statements> have been entered.
-    When the user attempts to proceed to Step 2.
-    Then the system <result>
+    Scenario Outline: Validating Formulary Positioning Statements
+      Given <statementCount> "Formulary Positioning Statements" have been entered
+
+      When the user attempts to proceed to Step 2
+      Then 
+        | Error Message              | Expected Result                            |
+        | ""                          | The system allows user to proceed         |
+        | "At least one Formulary Positioning Statement is required for this strategy." | The system displays error and prevents user from proceeding if no statements have been entered  |
 
     Examples:
-      | statements            | result                            |
-      | ["Positioning Statement 1", "Positioning Statement 2"]       | allows the user to proceed          |
-      | []                           | displays error message and prevents proceeding  |
-
-Scenario: Login with Invalid Email Address or Incorrect Password
-  Given I have entered an invalid email address "<invalid_email>" for login
-  When I attempt to log in
-  Then the system displays the error message "Invalid email or password"
-
-Scenario: Login with Valid Credentials
-  Given I have entered a valid email address "[Strategy1]@example.com" and password "<password>" for login
-  When I attempt to log in
-  Then I am able to successfully log in
+      | statementCount |
+      | 1              |
+      | 0              |

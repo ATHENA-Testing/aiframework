@@ -40,6 +40,17 @@ The framework doesn't just generate generic code; it learns your domain.
 - **Knowledge Base:** Add documents to the `knowledge_base/` folder.
 - **RAG Logic:** The system chunks these documents and stores them in a vector database. When generating code, it retrieves relevant snippets (like specific CSS selectors or business rules) to ensure the output is tailored to your application.
 
+### 5. Consolidated Generation Summary (Response.txt)
+After running the AI generation script, a consolidated report is created in `requirements/Response.txt`. This file contains:
+- The generated **Gherkin Feature** steps.
+- The corresponding **Step Definition** code blocks.
+- The implemented **Page Class Methods** with logic ensuring 100% acceptance criteria coverage.
+
+### 6. JIRA & Git Connectors
+The framework now includes enterprise-grade connectors for seamless integration into your CI/CD and project management workflows.
+- **JIRA Connector:** Located in `connectors/jira_connector.py`. Supports **API Token** and **SSO/OAuth** authentication. Configure your credentials in `config/framework.yaml`.
+- **Git Connector:** Located in `connectors/git_connector.py`. Automates committing and pushing generated code to **GitHub** or **GitLab** repositories.
+
 ---
 
 ## Execution Guide

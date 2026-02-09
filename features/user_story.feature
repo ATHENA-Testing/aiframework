@@ -28,7 +28,7 @@ Feature: Payer Strategy Workflow
       Given <statementCount> "Formulary Positioning Statements" have been entered
 
       When the user attempts to proceed to Step 2
-      Then 
+      Then
         | Error Message              | Expected Result                            |
         | ""                          | The system allows user to proceed         |
         | "At least one Formulary Positioning Statement is required for this strategy." | The system displays error and prevents user from proceeding if no statements have been entered  |

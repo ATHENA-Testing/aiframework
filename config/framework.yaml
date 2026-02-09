@@ -7,3 +7,21 @@ base_url: "https://www.example.com"
 parallel_execution: false
 log_level: "INFO"
 allure_report: true
+
+# JIRA Integration
+jira:
+  server: "https://your-domain.atlassian.net"
+  auth_method: "api_token" # api_token or sso_oauth
+  email: "your-email@example.com"
+  api_token: "your-api-token"
+  # For SSO/OAuth
+  consumer_key: ""
+  access_token: ""
+  access_token_secret: ""
+  key_cert: ""
+
+# Git Integration
+git:
+  remote_url: "https://github.com/your-user/your-repo.git"
+  branch: "main"
+  token: "your-git-token"

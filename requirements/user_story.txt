@@ -1,47 +1,15 @@
-User Story: Payer Strategy Workflow
+User Story: [Enter Title Here]
 
 Description:
-The virtual deal desk is a tool that will support the capture of brand strategies and expedite a response to an opportunity brought forth from the field. This epic is focused on the first area of functionality.
-The virtual deal desk will provide tools to help the PCD team and other strategy-oriented colleagues create, edit, publish, and review brand strategies in each of three strategy segments; namely, payer, provider, and channel partner spaces. This epic is concerned with the development of the business logic, user experience, and scoping the functionality of the system related to managing brand segment strategies
-
-As a Pricing, Contracting, and Distribution (PCD) user,
-I need a dynamic interface to define price protection policy and Brand Segment strategies in the Payer space,
-so that I can accurately capture varying max concession rate requirements.
+As a [role],
+I want to [action],
+So that [benefit]
 
 Acceptance Criteria:
-Target Account List is Populated
-Scenario 1: Target Account List is Populated
-- Given the "limit this strategy to a limited target account list" option is enabled.
-- And the "Target Account List" contains one or more accounts.
-- When the user attempts to proceed to Step 2.
-- Then the system MUST allow the user to proceed.
-
-Scenario 2: Target Account List is Empty
-- Given the "limit this strategy to a limited target account list" option is enabled.
-- And the "Target Account List" is empty (or null).
-- When the user attempts to proceed to Step 2.
-- Then the system MUST display the error message: "A Target Account List is required when limiting this strategy to specific accounts."
-- And the system MUST prevent the user from proceeding to Step 2.
-
-Scenario 3: Target Account List is Not Applicable
-- Given the "limit this strategy to a limited target account list" option is disabled.
-- When the user attempts to proceed to Step 2.
-- Then the system MUST allow the user to proceed (regardless of the "Target Account List" content).
-
-
-Formulary Positioning Statement Validation:
-Scenario 1: One or More Statements Exist
-- Given one or more "Formulary Positioning Statements" have been entered.
-- When the user attempts to proceed to Step 2.
-- Then the system MUST allow the user to proceed.
-
-Scenario 2: No Statements Exist
-- Given no "Formulary Positioning Statements" have been entered.
-- When the user attempts to proceed to Step 2.
-- Then the system MUST display the error message: "At least one Formulary Positioning Statement is required for this strategy."
-- And the system MUST prevent the user from proceeding to Step 2.
-
+1. [Criteria 1]
+2. [Criteria 2]
+3. [Criteria 3]
 
 Test Data:
-- [Username]: [Strategy1]
-- [Product]: [Xolair]
+- [Key]: [Value]
+- [Key]: [Value]

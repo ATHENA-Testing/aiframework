@@ -8,7 +8,7 @@ from base.base_page import BasePage
 
 
 #Here's the suggested Page Object Method for logging in as a PCD user with a specific strategy-based email address:
-
+#AI: create  algic
 
 def login_as_pcd_user(self, strategy1):
     # Enter email address (strategy1@example.com)

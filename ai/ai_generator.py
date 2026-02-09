@@ -63,6 +63,7 @@ class AICodeGenerator:
         target_steps = f"features/steps/{feature_name}_steps.py"
         
         step_map = self.get_step_definitions_map()
+        generated_summary = {"steps": [], "methods": []}
 
         for line in lines:
             line = line.strip()
@@ -71,22 +72,21 @@ class AICodeGenerator:
                 
                 if step_text not in step_map:
                     print(f"Detected new/updated step: {step_text}")
-                    
-                    # RAG Context for Page Method
                     rag_context = self.rag.query(step_text)
                     
-                    # 1. Generate/Update Page Method
+                    # 1. Generate Page Method
                     existing_methods = self.get_existing_methods()
                     page_prompt = self.prompt_lib.PAGE_METHOD_GENERATION_PROMPT.format(
                         rag_context=rag_context,
                         existing_methods=", ".join(existing_methods),
-                        action_description=f"Perform action for: {step_text}"
+                        action_description=f"Perform action for: {step_text}. ENSURE 100% AC COVERAGE."
                     )
                     page_code = self.executor.provider.generate(page_prompt).strip()
                     page_code = re.sub(r'```python|```', '', page_code).strip()
                     
                     if "# Use existing method" not in page_code and page_code:
                         self.append_to_file(target_page, page_code)
+                        generated_summary["methods"].append(page_code)
 
                     # 2. Generate Step Definition
                     step_prompt = self.prompt_lib.STEP_DEFINITION_GENERATION_PROMPT.format(
@@ -99,35 +99,9 @@ class AICodeGenerator:
                     
                     if "# Step already exists" not in step_code and step_code:
                         self.append_to_file(target_steps, step_code)
-
-    def process_smart_prompts(self, directory="pages"):
-        pattern = os.path.join(directory, "*.py")
-        for file in glob.glob(pattern):
-            with open(file, 'r', encoding='utf-8') as f:
-                content = f.read()
-            
-            prompts = re.findall(r'# AI: (.*)', content)
-            if not prompts:
-                continue
-            
-            print(f"Processing smart prompts in {file}...")
-            for prompt_text in prompts:
-                # RAG Context for logic generation
-                rag_context = self.rag.query(prompt_text)
-                
-                existing_methods = self.get_existing_methods()
-                ai_prompt = self.prompt_lib.LOGIC_GENERATION_PROMPT.format(
-                    user_prompt=prompt_text + f"\nContext from knowledge base: {rag_context}",
-                    existing_methods=", ".join(existing_methods)
-                )
-                generated_code = self.executor.provider.generate(ai_prompt).strip()
-                generated_code = re.sub(r'```python|```', '', generated_code).strip()
-                
-                full_prompt_line = f"# AI: {prompt_text}"
-                content = content.replace(full_prompt_line, generated_code)
-            
-            with open(file, 'w') as f:
-                f.write(content)
+                        generated_summary["steps"].append(step_code)
+        
+        return generated_summary
 
     def generate_feature_from_requirement(self, requirement_path):
         if not self.executor.enabled:
@@ -135,9 +109,7 @@ class AICodeGenerator:
         with open(requirement_path, 'r') as f:
             req_text = f.read()
         
-        # RAG Context for Feature generation
         rag_context = self.rag.query(req_text)
-        
         prompt = self.prompt_lib.FEATURE_GENERATION_PROMPT.format(
             rag_context=rag_context,
             requirement_text=req_text
@@ -148,26 +120,60 @@ class AICodeGenerator:
         feature_path = f"features/{base_name}"
         with open(feature_path, 'w') as f:
             f.write(feature_content)
-        return feature_path
+        return feature_path, feature_content
 
     def process_all(self):
-        # 0. Rebuild RAG Index
         self.rag.rebuild_index()
+        response_content = "### AI GENERATION RESPONSE SUMMARY ###\n\n"
         
-        # 1. Requirements to Features
-        req_pattern = os.path.join("requirements", "*.txt")
-        req_files = glob.glob(req_pattern)
+        req_files = glob.glob("requirements/*.txt")
         for req in req_files:
-            self.generate_feature_from_requirement(req)
-        
-        # 2. Features to Code (Sync)
-        feature_pattern = os.path.join("features", "*.feature")
-        feature_files = glob.glob(feature_pattern)
-        for feature in feature_files:
-            self.sync_feature_to_code(feature)
+            if "Response.txt" in req: continue
             
-        # 3. In-code Smart Prompts
+            # 1. Req to Feature
+            f_path, f_content = self.generate_feature_from_requirement(req)
+            response_content += f"--- FEATURE: {os.path.basename(f_path)} ---\n{f_content}\n\n"
+            
+            # 2. Sync Code
+            summary = self.sync_feature_to_code(f_path)
+            
+            response_content += "--- STEP DEFINITIONS ---\n"
+            response_content += "\n".join(summary["steps"]) + "\n\n"
+            
+            response_content += "--- PAGE METHODS ---\n"
+            response_content += "\n".join(summary["methods"]) + "\n\n"
+            
+        # 3. Smart Prompts
         self.process_smart_prompts()
+        
+        # Write Response.txt
+        with open("requirements/Response.txt", 'w', encoding='utf-8') as f:
+            f.write(response_content)
+        print("Response.txt generated in requirements/ folder.")
+
+    def process_smart_prompts(self, directory="pages"):
+        pattern = os.path.join(directory, "*.py")
+        for file in glob.glob(pattern):
+            with open(file, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            prompts = re.findall(r'# AI: (.*)', content)
+            if not prompts: continue
+            
+            for prompt_text in prompts:
+                rag_context = self.rag.query(prompt_text)
+                existing_methods = self.get_existing_methods()
+                ai_prompt = self.prompt_lib.LOGIC_GENERATION_PROMPT.format(
+                    user_prompt=prompt_text + f"\nContext from knowledge base: {rag_context}",
+                    existing_methods=", ".join(existing_methods)
+                )
+                generated_code = self.executor.provider.generate(ai_prompt).strip()
+                generated_code = re.sub(r'```python|```', '', generated_code).strip()
+                full_prompt_line = f"# AI: {prompt_text}"
+                content = content.replace(full_prompt_line, generated_code)
+            
+            with open(file, 'w') as f:
+                f.write(content)
 
 if __name__ == "__main__":
     generator = AICodeGenerator()

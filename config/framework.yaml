@@ -10,6 +10,7 @@ allure_report: true
 
 # JIRA Integration
 jira:
+  enabled: false # Set to true to enable JIRA integration
   server: "https://your-domain.atlassian.net"
   auth_method: "api_token" # api_token or sso_oauth
   email: "your-email@example.com"
@@ -22,6 +23,7 @@ jira:
 
 # Git Integration
 git:
+  enabled: false # Set to true to enable Git integration
   remote_url: "https://github.com/your-user/your-repo.git"
   branch: "main"
   token: "your-git-token"

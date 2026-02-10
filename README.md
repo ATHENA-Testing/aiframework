@@ -1,10 +1,10 @@
-# AI-Driven Python Selenium BDD Framework
+# AI-Driven Python Selenium BDD Framework (Enterprise Edition)
 
-This enterprise-grade automation framework integrates **Behavior-Driven Development (BDD)** with **Artificial Intelligence** to automate the entire testing lifecycle. From requirement analysis to code generation and iterative maintenance, this framework leverages Large Language Models (LLMs) and Retrieval-Augmented Generation (RAG) to deliver high-quality automation at scale.
+This framework integrates **Behavior-Driven Development (BDD)** with **Artificial Intelligence** to automate the entire testing lifecycle. It features JIRA automation, global code deduplication, and cross-platform support.
 
 ## Framework Architecture
 
-The system is built on a **Hybrid Page Object Model (POM)**. It combines the readability of Gherkin with the power of Python and Selenium, enhanced by an AI engine that understands your domain through a local knowledge base.
+The system uses a **Hybrid Page Object Model (POM)** enhanced by an AI engine that understands your domain through a local knowledge base.
 
 | Component | Technology | Purpose |
 | :--- | :--- | :--- |
@@ -12,78 +12,56 @@ The system is built on a **Hybrid Page Object Model (POM)**. It combines the rea
 | **Automation** | Selenium 4 | Web browser interaction |
 | **AI Engine** | LLM Factory | Code generation and synchronization |
 | **Context** | FAISS + RAG | Domain-specific knowledge injection |
-| **Reporting** | Allure | Detailed execution and failure analysis |
+| **Integrations** | JIRA & Git | Enterprise workflow automation |
 | **OS Support** | Win/Linux/Mac | Cross-platform execution scripts |
 
 ---
 
-## Detailed Feature Guide
+## Key Enterprise Features
 
-### 1. Requirement-to-Code Generation
-This feature allows you to transform business requirements directly into executable code.
-1.  **Input:** Place your requirement in `requirements/user_story.txt`. You can either manually enter details or simply provide a **JIRA ID** (e.g., `JIRA: PROJ-123`).
-2.  **JIRA Integration:** If a JIRA ID is provided, the framework automatically fetches the Summary, Description, Acceptance Criteria, and linked Epic details directly from your JIRA instance.
-3.  **Intelligent Global Deduplication:** Before generating anything, the AI scans all existing feature files, step definitions, and page methods. It prioritizes **reusing existing assets** over creating new ones. For example, if a "Login" flow already exists, the AI will use the existing Gherkin steps and Selenium methods instead of duplicating them.
-4.  **Process:** The AI analyzes the requirements and generates a Gherkin `.feature` file using a mix of existing and new steps.
-5.  **Output:** It then auto-populates the necessary step definitions and Page Object methods, ensuring 100% coverage with zero redundancy.
+### 1. JIRA-to-Code Automation
+Transform JIRA issues directly into executable code.
+- **Input:** Provide a **JIRA ID** (e.g., `JIRA: PROJ-123`) in `requirements/user_story.txt`.
+- **Fetch:** The framework pulls Summary, Description, Acceptance Criteria (AC), and Epic details.
+- **Generate:** AI analyzes the ACs to generate feature files and robust Page Object methods.
 
-### 2. Iterative Feature Synchronization
-Software requirements change frequently. This framework handles updates gracefully.
-- If you modify a step in an existing `.feature` file (e.g., changing "I click login" to "I click the secure login button"), simply run the generator.
-- The AI detects the change, identifies the old code, and **overrides** it with updated logic that reflects the new step text.
+### 2. Intelligent Global Deduplication
+The AI engine acts as a "smart architect" to prevent redundant code.
+- **Scan:** Scans all existing feature steps and page methods globally.
+- **Reuse:** If a "Login" or "Navigation" flow already exists, the AI reuses those assets instead of duplicating them for new requirements.
 
-### 3. In-Code "Smart Prompts"
-For complex logic that requires specific Selenium implementation, you can "chat" with the framework directly in your code.
-- **Usage:** Add a comment like `# AI: Create a method to scrape all prices from the results table and return the average` in any page class.
-- **Result:** The AI engine will replace that comment with a fully functional Python method, using the framework's `BasePage` utilities.
+### 3. Conditional Execution Toggles
+Manage enterprise dependencies easily via `config/framework.yaml`.
+- **Toggles:** Set `jira: enabled: false` or `git: enabled: false` to skip those integrations.
+- **Robustness:** The AI engine intelligently ignores these methods and dependencies when disabled, ensuring the framework runs smoothly in any environment.
 
-### 4. RAG-Enabled Knowledge Base
-The framework doesn't just generate generic code; it learns your domain.
-- **Knowledge Base:** Add documents to the `knowledge_base/` folder.
-- **RAG Logic:** The system chunks these documents and stores them in a vector database. When generating code, it retrieves relevant snippets (like specific CSS selectors or business rules) to ensure the output is tailored to your application.
-
-### 5. Consolidated Generation Summary (Response.txt)
-After running the AI generation script, a consolidated report is created in `requirements/Response.txt`. This file contains:
-- The generated **Gherkin Feature** steps.
-- The corresponding **Step Definition** code blocks.
-- The implemented **Page Class Methods** with logic ensuring 100% acceptance criteria coverage.
-
-### 6. JIRA & Git Connectors
-The framework now includes enterprise-grade connectors for seamless integration into your CI/CD and project management workflows.
-- **JIRA Connector:** Located in `connectors/jira_connector.py`. Supports **API Token** and **SSO/OAuth** authentication. Configure your credentials in `config/framework.yaml`.
-- **Git Connector:** Located in `connectors/git_connector.py`. Automates committing and pushing generated code to **GitHub** or **GitLab** repositories.
+### 4. Robust Requirement Parsing
+The `user_story.txt` parser is built for real-world requirements.
+- **Multi-line Support:** Seamlessly handles multi-line Summary, Description, and Acceptance Criteria without errors.
+- **Variable Mapping:** Automatically maps test data to generated methods.
 
 ---
 
 ## Execution Guide
 
 ### Environment Setup
-1.  **Install Python:** Ensure Python 3.10 or higher is installed.
+1.  **Install Python:** Python 3.10 or higher.
 2.  **Dependencies:** Run `pip install -r requirements.txt`.
-3.  **AI Configuration:** Update `config/ai.yaml` with your API keys (OpenAI, Azure) or local endpoint (Ollama).
+3.  **AI Configuration:** Update `config/ai.yaml` with your API keys.
 
-### Running on Windows (.bat)
-| Task | Command | Description |
+### Execution Commands
+| Task | Windows (.bat) | Linux/Mac (.sh) |
 | :--- | :--- | :--- |
-| **AI Generation** | `scripts\ai_generate.bat` | Processes requirements and syncs code. |
-| **Run Tests** | `scripts\run_bdd.bat` | Executes all BDD features. |
-| **Report** | `scripts\generate_allure.bat` | Compiles results into an Allure report. |
-
-### Running on Linux/Mac (.sh)
-| Task | Command | Description |
-| :--- | :--- | :--- |
-| **AI Generation** | `./scripts/ai_generate.sh` | Processes requirements and syncs code. |
-| **Run Tests** | `./scripts/run_bdd.sh` | Executes all BDD features. |
-| **Report** | `./scripts/generate_allure.sh` | Compiles results into an Allure report. |
+| **AI Generation** | `scripts\ai_generate.bat` | `./scripts/ai_generate.sh` |
+| **Run Tests** | `scripts\run_bdd.bat` | `./scripts/run_bdd.sh` |
+| **Allure Report** | `scripts\generate_allure.bat` | `./scripts/generate_allure.sh` |
 
 ---
 
 ## Technical & Hardware Requirements
 
-To ensure smooth operation of the AI and RAG components, the following specifications are recommended:
+- **Hardware:** Minimum 8GB RAM (16GB for local RAG) and a Dual-core CPU.
+- **Drivers:** Latest Chrome, Firefox, or Edge with corresponding WebDrivers.
+- **AI Access:** Valid API keys for cloud providers or local Ollama instance.
 
-- **Hardware:** Minimum 8GB RAM (16GB for local RAG indexing) and a Dual-core CPU.
-- **Drivers:** Latest Chrome, Firefox, or Edge browser with corresponding WebDrivers.
-- **AI Access:** Valid API keys for cloud providers or a running instance of Ollama for local execution.
-
-For a detailed technical breakdown, refer to the `MASTER_FRAMEWORK_PROMPT.md` included in the root directory.
+For a detailed technical blueprint, refer to the `MASTER_FRAMEWORK_PROMPT.md`.

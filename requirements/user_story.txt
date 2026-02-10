@@ -1,3 +1,5 @@
+JIRA: [Optional: Enter JIRA ID here, e.g., PROJ-123 to pull details automatically]
+
 User Story: [Enter Title Here]
 
 Description:

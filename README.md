@@ -21,9 +21,11 @@ The system is built on a **Hybrid Page Object Model (POM)**. It combines the rea
 
 ### 1. Requirement-to-Code Generation
 This feature allows you to transform business requirements directly into executable code.
-1.  **Input:** Place your requirement in `requirements/user_story.txt`. Include the User Story, Acceptance Criteria (AC), and Test Data.
-2.  **Process:** The AI analyzes the ACs and generates a Gherkin `.feature` file.
-3.  **Output:** It then auto-populates the corresponding step definitions and Page Object methods, ensuring 100% coverage of your requirements.
+1.  **Input:** Place your requirement in `requirements/user_story.txt`. You can either manually enter details or simply provide a **JIRA ID** (e.g., `JIRA: PROJ-123`).
+2.  **JIRA Integration:** If a JIRA ID is provided, the framework automatically fetches the Summary, Description, Acceptance Criteria, and linked Epic details directly from your JIRA instance.
+3.  **Intelligent Global Deduplication:** Before generating anything, the AI scans all existing feature files, step definitions, and page methods. It prioritizes **reusing existing assets** over creating new ones. For example, if a "Login" flow already exists, the AI will use the existing Gherkin steps and Selenium methods instead of duplicating them.
+4.  **Process:** The AI analyzes the requirements and generates a Gherkin `.feature` file using a mix of existing and new steps.
+5.  **Output:** It then auto-populates the necessary step definitions and Page Object methods, ensuring 100% coverage with zero redundancy.
 
 ### 2. Iterative Feature Synchronization
 Software requirements change frequently. This framework handles updates gracefully.

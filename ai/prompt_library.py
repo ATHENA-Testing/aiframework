@@ -29,14 +29,14 @@ class PromptLibrary:
 
     CONTEXT:
     - Base Class Methods Available: click(locator), enter_text(locator, text), get_text(locator), is_displayed(locator), open_url(url)
-    - Existing Page Methods: {existing_methods}
+    - ALL EXISTING PAGE METHODS IN FRAMEWORK: {existing_methods}
     - Target Action: {action_description}
     
     REQUIREMENTS:
     1. Use the existing BasePage methods.
-    2. Do NOT recreate logic that already exists in 'Existing Page Methods'.
-    3. Use domain knowledge from the Knowledge Base to handle complex logic or specific selectors if provided.
-    4. If the action can be performed by an existing method, return a comment saying "# Use existing method: [method_name]".
+    2. IMPORTANT: Scan 'ALL EXISTING PAGE METHODS IN FRAMEWORK'. If a method for this functionality (e.g., login, logout, add_to_cart) already exists anywhere in the framework, return ONLY the comment: # Use existing method: [method_name]
+    3. Do NOT recreate logic that already exists. Prioritize global reuse.
+    4. Use domain knowledge from the Knowledge Base to handle complex logic or specific selectors if provided.
     5. Otherwise, generate a clean, robust Python method.
     6. Return ONLY the code or the comment.
     """
@@ -65,12 +65,16 @@ class PromptLibrary:
     REQUIREMENT:
     {requirement_text}
     
+    EXISTING STEPS IN FRAMEWORK:
+    {existing_steps}
+    
     REQUIREMENTS:
     1. Generate a comprehensive Feature file with multiple Scenarios covering ALL Acceptance Criteria.
     2. Use standard Gherkin syntax (Feature, Scenario, Given, When, Then).
-    3. Incorporate the provided Test Data where applicable.
-    4. Use the Knowledge Base context to ensure domain-specific terminology and rules are followed.
-    5. Return ONLY the Gherkin content.
+    3. IMPORTANT: Review 'EXISTING STEPS IN FRAMEWORK'. Reuse these exact steps for common flows (e.g., Login, Logout, Navigation) instead of creating new ones.
+    4. Incorporate the provided Test Data where applicable.
+    5. Use the Knowledge Base context to ensure domain-specific terminology and rules are followed.
+    6. Return ONLY the Gherkin content.
     """
 
     SYNC_STEP_DEFINITION_PROMPT = """
@@ -98,4 +102,18 @@ class PromptLibrary:
     1. Generate a complete, reusable Python method.
     2. Follow Page Object Model best practices.
     3. Return ONLY the Python code.
+    """
+
+    JIRA_REQUIREMENT_PROMPT = """
+    You are an expert Test Architect. Convert the following JIRA Issue data into a structured requirement for automation.
+    
+    JIRA DATA:
+    {jira_data}
+    
+    REQUIREMENTS:
+    1. Extract the core User Story.
+    2. List all Acceptance Criteria clearly.
+    3. Identify Test Scenarios from the description and linked issues.
+    4. Consider the context from the Parent Epic if provided.
+    5. Format the output as a clean text requirement suitable for BDD generation.
     """

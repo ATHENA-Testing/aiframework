@@ -49,12 +49,39 @@ class JiraConnector:
 
     def get_issue_details(self, issue_key):
         if not self.client: return None
-        issue = self.client.issue(issue_key)
-        return {
-            'summary': issue.fields.summary,
-            'description': issue.fields.description,
-            'status': issue.fields.status.name
-        }
+        try:
+            issue = self.client.issue(issue_key)
+            details = {
+                'key': issue_key,
+                'summary': issue.fields.summary,
+                'description': issue.fields.description,
+                'status': issue.fields.status.name,
+                'acceptance_criteria': getattr(issue.fields, 'customfield_10016', 'Not provided'), # Common AC field ID
+                'epic_link': getattr(issue.fields, 'customfield_10014', None),
+                'parent': getattr(issue.fields, 'parent', None),
+                'linked_issues': []
+            }
+
+            # Fetch Epic details if exists
+            if details['epic_link']:
+                epic = self.client.issue(details['epic_link'])
+                details['epic_details'] = {
+                    'summary': epic.fields.summary,
+                    'description': epic.fields.description
+                }
+
+            # Fetch linked issues
+            if hasattr(issue.fields, 'issuelinks'):
+                for link in issue.fields.issuelinks:
+                    if hasattr(link, 'outwardIssue'):
+                        details['linked_issues'].append(link.outwardIssue.key)
+                    elif hasattr(link, 'inwardIssue'):
+                        details['linked_issues'].append(link.inwardIssue.key)
+            
+            return details
+        except Exception as e:
+            print(f"Error fetching JIRA issue {issue_key}: {e}")
+            return None
 
     def update_test_result(self, issue_key, comment, status=None):
         if not self.client: return

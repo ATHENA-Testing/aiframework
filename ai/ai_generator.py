@@ -18,7 +18,12 @@ class AICodeGenerator:
             self.rag = RAGEngine()
             self.scanner = GlobalScanner()
             
-            with open("config/framework.yaml", 'r') as f:
+            config_path = "config/framework.yaml"
+            if not os.path.exists(config_path):
+                print(f"Error: {config_path} not found.")
+                sys.exit(1)
+                
+            with open(config_path, 'r') as f:
                 self.framework_config = yaml.safe_load(f)
             
             # Conditional JIRA Connector
@@ -39,7 +44,12 @@ class AICodeGenerator:
                 except Exception as e:
                     print(f"Warning: Failed to initialize Git connector: {e}")
                     
-            with open("config/ai.yaml", 'r') as f:
+            ai_config_path = "config/ai.yaml"
+            if not os.path.exists(ai_config_path):
+                print(f"Error: {ai_config_path} not found.")
+                sys.exit(1)
+                
+            with open(ai_config_path, 'r') as f:
                 self.ai_config = yaml.safe_load(f)['ai']
         except Exception as e:
             print(f"Critical Error in AICodeGenerator init: {e}")
@@ -122,6 +132,10 @@ class AICodeGenerator:
             with open(requirement_path, 'r', encoding='utf-8') as f:
                 req_text = f.read()
             
+            # Improved Multi-line Parsing for user_story.txt
+            # Ensure the text is cleaned but maintains its structure for the LLM
+            req_text = req_text.strip()
+            
             # Check for JIRA ID
             jira_match = re.search(r'JIRA:\s*([A-Z]+-\d+)', req_text)
             if jira_match and self.jira:
@@ -145,15 +159,29 @@ class AICodeGenerator:
                 requirement_text=req_text,
                 existing_steps=", ".join(existing_steps)
             )
+            
             feature_content = self.executor.provider.generate(prompt).strip()
+            
+            # Error Check: If LLM returned an error message instead of Gherkin
+            if feature_content.startswith("Error from LLM Provider") or feature_content.startswith("Failed to generate"):
+                print(f"AI Generation Error: {feature_content}")
+                return None
+                
             feature_content = re.sub(r'```gherkin|```', '', feature_content).strip()
+            
+            # Sanity check for Gherkin content
+            if "Feature:" not in feature_content:
+                print(f"Warning: Generated content for {requirement_path} does not look like Gherkin.")
+                
             base_name = os.path.basename(requirement_path).replace('.txt', '.feature')
             feature_path = f"features/{base_name}"
             with open(feature_path, 'w', encoding='utf-8') as f:
                 f.write(feature_content)
             return feature_path, feature_content
         except Exception as e:
-            print(f"Error in generate_feature_from_requirement for {requirement_path}: {e}")
+            print(f"Error in generate_feature_from_requirement for {requirement_path}: {str(e)}")
+            import traceback
+            traceback.print_exc()
             return None
 
     def process_all(self):
@@ -163,20 +191,36 @@ class AICodeGenerator:
             
             req_pattern = os.path.join("requirements", "*.txt")
             req_files = glob.glob(req_pattern)
+            
+            if not req_files:
+                print("No requirement files found in requirements/ folder.")
+                return
+
             for req in req_files:
                 if "Response.txt" in req: continue
                 
+                print(f"Processing requirement: {req}")
                 result = self.generate_feature_from_requirement(req)
-                if not result: continue
+                if not result: 
+                    print(f"Skipping {req} due to generation failure.")
+                    continue
+                    
                 f_path, f_content = result
                 
                 response_content += f"--- FEATURE: {os.path.basename(f_path)} ---\n{f_content}\n\n"
                 summary = self.sync_feature_to_code(f_path)
                 
                 response_content += "--- STEP DEFINITIONS ---\n"
-                response_content += "\n".join(summary["steps"]) + "\n\n"
+                if summary["steps"]:
+                    response_content += "\n".join(summary["steps"]) + "\n\n"
+                else:
+                    response_content += "No new steps generated (all reused or failed).\n\n"
+                    
                 response_content += "--- PAGE METHODS ---\n"
-                response_content += "\n".join(summary["methods"]) + "\n\n"
+                if summary["methods"]:
+                    response_content += "\n".join(summary["methods"]) + "\n\n"
+                else:
+                    response_content += "No new methods generated (all reused or failed).\n\n"
                 
             self.process_smart_prompts()
             
@@ -191,6 +235,8 @@ class AICodeGenerator:
                 
         except Exception as e:
             print(f"Error during process_all: {e}")
+            import traceback
+            traceback.print_exc()
 
     def process_smart_prompts(self, directory="pages"):
         try:

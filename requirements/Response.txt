@@ -1,2 +1,285 @@
 ### AI GENERATION RESPONSE SUMMARY ###
 
+--- FEATURE: amazon_smartphone.feature ---
+Feature: Purchase a smartphone under 30000 on Amazon by applying filters for price, ratings, and reviews
+
+  As a price-conscious shopper,
+  I want to find and purchase a smartphone under 30000 on Amazon
+  by filtering products based on price, ratings, and reviews,
+  so that I can compare top-rated options within my budget and make a confident purchase.
+
+  Background:
+    Given I am on the Amazon homepage
+
+  Scenario: Navigate to Mobiles - Smartphones listing page
+    When I navigate to Mobiles - Smartphones
+    Then I should see the smartphone listings page
+
+  Scenario: Apply price filter to show smartphones up to 30000
+    Given I am on the Smartphones listing page
+    When I apply a price filter of Up to 30000
+    Or I enter Max Price 30000
+    Then only smartphones priced at or below 30000 are shown
+
+  Scenario: Verify product count updates after applying price filter
+    Given the price filter is applied
+    When the results reload
+    Then the number of products updates accordingly
+
+  Scenario: Validate each filtered product has price less than or equal to 30000 before coupons
+    Given filtered products are displayed
+    Then each product has a listed price less than or equal to 30000 before coupons
+
+--- STEP DEFINITIONS ---
+@given('I am on the Amazon homepage')
+def step_impl(context):
+    context.browser.get("https://www.amazon.com")
+from behave import when
+
+@when('I navigate to Mobiles - Smartphones')
+def step_impl(context):
+    context.page.navigate_to_mobiles_smartphones()
+from behave import then
+
+@then('I should see the smartphone listings page')
+def step_impl(context):
+    context.page.should_see_smartphone_listings_page()
+from behave import given
+
+@given('I am on the Smartphones listing page')
+def step_impl(context):
+    context.page.navigate_to_mobiles_smartphones()
+    context.page.should_see_smartphone_listings_page()
+from behave import when
+
+@when("I apply a price filter of Up to {price:d}")
+def step_impl(context, price):
+    # Assuming context has a page object with a method to apply the price filter,
+    # since no specific method is listed in the provided Page Object Methods,
+    # implement a placeholder or raise an error to indicate not implemented.
+    if hasattr(context, "page") and hasattr(context.page, "apply_price_filter_up_to"):
+        context.page.apply_price_filter_up_to(price)
+    else:
+        raise NotImplementedError("Method to apply price filter is not implemented in the page object.")
+from behave import then
+
+@then('only smartphones priced at or below 30000 are shown')
+def step_impl(context):
+    context.navigate_to_mobiles_smartphones()
+    context.should_see_smartphone_listings_page()
+    results = context.get_results_text()
+    # Assuming results is a list of dict with 'price' key or a parsable string
+    # Example: [{'name': 'Phone X', 'price': 29999}, ...]
+    for item in results:
+        price = item.get('price', 0)
+        assert price <= 30000, f"Found smartphone priced above 30000: {price}"
+from behave import given
+
+@given('the price filter is applied')
+def step_impl(context):
+    # Implement applying the price filter using available page object methods or direct context manipulation
+    # Assuming there is a method to apply price filter - if not, implement accordingly
+    # Example placeholder implementation:
+    context.page.apply_price_filter()  # Replace with actual method if exists
+@when('the results reload')
+def step_impl(context):
+    # Implement how the results reload - this depends on application specifics,
+    # for example, could be refreshing the page or triggering reload via JS etc.
+    # Placeholder example:
+    context.page.reload_results()
+@then('the number of products updates accordingly')
+def step_impl(context):
+    # Implement validation that the number of products updates accordingly.
+    # Example: compare the product count before and after some action.
+    # Assuming 'context' stores previous and current product counts.
+    previous_count = getattr(context, 'previous_product_count', None)
+    current_count = context.page.get_results_count()  # hypothetical method
+    
+    assert previous_count is not None, "Previous product count not set in context"
+    assert current_count != previous_count, "Product count did not update accordingly"
+@given('filtered products are displayed')
+def step_filtered_products_are_displayed(context):
+    # Assuming filtered products are displayed after navigating to mobiles smartphones page
+    context.navigate_to_mobiles_smartphones()
+    context.should_see_smartphone_listings_page()
+from behave import then
+
+@then('each product has a listed price less than or equal to 30000 before coupons')
+def step_impl(context):
+    for product in context.products:
+        assert product.listed_price <= 30000, f"Product price {product.listed_price} exceeds 30000"
+
+--- PAGE METHODS ---
+# Use existing method: open_url
+def navigate_to_mobiles_smartphones(self):
+    smartphones_category_locator = "[data-testid='category-mobiles-smartphones']"
+    self.click(smartphones_category_locator)
+def should_see_smartphone_listings_page(self):
+    locator = "[data-testid='smartphone-listings']"
+    return self.is_displayed(locator)
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: get_results_text
+# Use existing method: search_to_checkout
+
+--- FEATURE: user_story.feature ---
+Feature: ATM Cash Withdrawal
+  As a bank customer,
+  I want to withdraw cash from an ATM,
+  So that I can have physical currency.
+
+  Background:
+    Given a user with username "[Strategy1]"
+
+  Scenario: Insert card and enter valid PIN
+    Given a user with username "[Strategy1]"
+    When the user inserts their card into the ATM
+    And the user enters PIN "1234"
+    Then the system verifies the PIN is valid
+
+  Scenario: Select withdrawal amount
+    Given a user with username "[Strategy1]"
+    And the user has successfully entered a valid PIN
+    When the user selects the withdrawal amount "500"
+    Then the system verifies if the user has sufficient balance
+
+  Scenario: Sufficient balance verification and cash dispensing
+    Given a user with username "[Strategy1]"
+    And the user has selected the withdrawal amount "500"
+    And the system confirms sufficient balance
+    When the system dispenses the cash amount "500"
+    Then the user's account balance is updated accordingly
+
+  Scenario: Receipt issuance upon request
+    Given a user with username "[Strategy1]"
+    And the system has dispensed the cash amount "500"
+    When the user requests a receipt
+    Then the system provides a receipt for the withdrawal
+
+  Scenario: Receipt not requested
+    Given a user with username "[Strategy1]"
+    And the system has dispensed the cash amount "500"
+    When the user does not request a receipt
+    Then the system does not provide a receipt
+
+--- STEP DEFINITIONS ---
+@given('a user with username "{username}"')
+def step_impl(context, username):
+    context.login_as_pcd_user(username)
+from behave import given
+
+@given('a user with username "{username}"')
+def step_impl(context, username):
+    context.login_as_pcd_user(username)
+# Reused existing step for: When the user inserts their card into the ATM
+@when('the user enters PIN "{pin}"')
+def step_impl(context, pin):
+    # Implement the action to enter the PIN; assuming a page object method context.page.enter_pin exists
+    context.page.enter_pin(pin)
+@then("the system verifies the PIN is valid")
+def step_impl(context):
+    # Implementation depends on context, assuming a method context.system.verify_pin()
+    assert context.system.verify_pin() is True, "PIN verification failed"
+from behave import given
+
+@given('a user with username "{username}"')
+def step_impl(context, username):
+    context.login_as_pcd_user(username)
+# Reused existing step for: And the user has successfully entered a valid PIN
+@when('the user selects the withdrawal amount "{amount}"')
+def step_impl(context, amount):
+    # Implement selection of withdrawal amount here
+    context.page.select_withdrawal_amount(amount)
+@then('the system verifies if the user has sufficient balance')
+def step_verify_sufficient_balance(context):
+    # Implement verification logic here, for example:
+    # user_balance = context.user.get_balance()
+    # required_amount = context.transaction.amount
+    # assert user_balance >= required_amount, "Insufficient balance"
+    pass
+from behave import given
+
+@given('a user with username "{username}"')
+def step_impl(context, username):
+    context.login_as_pcd_user(username)
+# Reused existing step for: And the user has selected the withdrawal amount "500"
+@then('the system confirms sufficient balance')
+def step_confirm_sufficient_balance(context):
+    # TODO: Implement balance confirmation logic here
+    pass
+from behave import when
+
+@when('the system dispenses the cash amount "{amount}"')
+def step_impl(context, amount):
+    # Implement logic to simulate cash dispensing
+    context.cash_dispensed = int(amount)
+    # Here you can add any interaction with your system to simulate dispensing cash
+    pass
+@then("the user's account balance is updated accordingly")
+def step_account_balance_updated(context):
+    # Implementation depends on how account balance is stored and accessed in context or page objects.
+    # Placeholder example:
+    expected_balance = context.expected_balance
+    actual_balance = context.account_page.get_account_balance()
+    assert actual_balance == expected_balance, f"Expected balance {expected_balance}, but got {actual_balance}"
+@given('a user with username "{username}"')
+def step_impl(context, username):
+    context.login_as_pcd_user(username)
+@then('the system has dispensed the cash amount "{amount}"')
+def step_impl(context, amount):
+    # Implementation placeholder: verify that the system dispensed the specified cash amount
+    dispensed_amount = context.atm.get_dispensed_cash()  # Assuming context.atm exists and has this method
+    assert dispensed_amount == amount, f"Expected dispensed amount to be {amount} but got {dispensed_amount}"
+@when('the user requests a receipt')
+def step_impl(context):
+    # Implement the action where the user requests a receipt
+    context.page.request_receipt()
+@then('the system provides a receipt for the withdrawal')
+def step_impl(context):
+    # Implement receipt verification logic here
+    receipt = context.system.get_withdrawal_receipt()
+    assert receipt is not None, "No receipt was provided for the withdrawal"
+@given('a user with username "{username}"')
+def step_impl(context, username):
+    context.login_as_pcd_user(username)
+@then('the system has dispensed the cash amount "{amount}"')
+def step_impl(context, amount):
+    # Implement the check or simulation that the system has dispensed the cash amount
+    dispensed_amount = context.system.get_dispensed_cash()  # Example method, replace with actual
+    assert str(dispensed_amount) == amount, f"Expected dispensed amount {amount}, but got {dispensed_amount}"
+# Reused existing step for: When the user does not request a receipt
+@then('the system does not provide a receipt')
+def step_system_does_not_provide_receipt(context):
+    # Implement verification that no receipt is provided by the system.
+    # This could be checking the absence of a receipt element or message.
+    receipt_present = hasattr(context, 'receipt') and context.receipt.is_displayed()
+    assert not receipt_present, "Expected no receipt to be provided, but receipt was found."
+
+--- PAGE METHODS ---
+# Use existing method: login
+# Use existing method: login
+# Use existing method: search_to_checkout
+# Use existing method: enter_text
+# Use existing method: login
+# Use existing method: login
+# Use existing method: login_with_valid_credentials
+# Use existing method: add_to_cart
+# Use existing method: search_to_checkout
+# Use existing method: login
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: login
+# Use existing method: dispense_cash
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+# Use existing method: login
+# Use existing method: none found for "dispense cash" action
+# Use existing method: search_to_checkout
+# Use existing method: search_to_checkout
+

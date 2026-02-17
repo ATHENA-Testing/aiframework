@@ -10,9 +10,12 @@ class LLMProvider(ABC):
 
 class OpenAIProvider(LLMProvider):
     def __init__(self, api_key, model, base_url="https://api.openai.com/v1"):
-        self.api_key = api_key
+        self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
         self.model = model
-        self.base_url = base_url
+        if base_url and "api.openai.com" not in base_url:
+            self.base_url = base_url
+        else:
+            self.base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
 
     def generate(self, prompt: str) -> str:
         try:

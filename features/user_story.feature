@@ -1,39 +1,38 @@
-Feature: Payer Strategy Workflow
+Feature: ATM Cash Withdrawal
+  As a bank customer,
+  I want to withdraw cash from an ATM,
+  So that I can have physical currency.
 
-  Scenario: Target Account List Validation
-    Given a logged in user with username "[Strategy1]"
-    And a product to define a strategy for, "[Xolair]"
-    And the "limit this strategy to a limited target account list" option is enabled
+  Background:
+    Given a user with username "[Strategy1]"
 
-    Scenario Outline: Validating Target Account List
-      Given the "Target Account List" contains <accountCount> accounts
-      When the user attempts to proceed to Step 2
-      Then
-        | Error Message              | Expected Result                            |
-        | ""                          | The system allows user to proceed         |
-        | "A Target Account List is required when limiting this strategy to specific accounts." | The system displays error and prevents user from proceeding if the list is empty or null |
+  Scenario: Insert card and enter valid PIN
+    Given a user with username "[Strategy1]"
+    When the user inserts their card into the ATM
+    And the user enters PIN "1234"
+    Then the system verifies the PIN is valid
 
-    Examples:
-      | accountCount   |
-      | 1              |
-      | 3              |
-      | 0              |
-      | null           |
+  Scenario: Select withdrawal amount
+    Given a user with username "[Strategy1]"
+    And the user has successfully entered a valid PIN
+    When the user selects the withdrawal amount "500"
+    Then the system verifies if the user has sufficient balance
 
-  Scenario: Formulary Positioning Statement Validation
-    Given a logged in user with username "[Strategy1]"
-    And a product to define a strategy for, "[Xolair]"
+  Scenario: Sufficient balance verification and cash dispensing
+    Given a user with username "[Strategy1]"
+    And the user has selected the withdrawal amount "500"
+    And the system confirms sufficient balance
+    When the system dispenses the cash amount "500"
+    Then the user's account balance is updated accordingly
 
-    Scenario Outline: Validating Formulary Positioning Statements
-      Given <statementCount> "Formulary Positioning Statements" have been entered
+  Scenario: Receipt issuance upon request
+    Given a user with username "[Strategy1]"
+    And the system has dispensed the cash amount "500"
+    When the user requests a receipt
+    Then the system provides a receipt for the withdrawal
 
-      When the user attempts to proceed to Step 2
-      Then
-        | Error Message              | Expected Result                            |
-        | ""                          | The system allows user to proceed         |
-        | "At least one Formulary Positioning Statement is required for this strategy." | The system displays error and prevents user from proceeding if no statements have been entered  |
-
-    Examples:
-      | statementCount |
-      | 1              |
-      | 0              |
+  Scenario: Receipt not requested
+    Given a user with username "[Strategy1]"
+    And the system has dispensed the cash amount "500"
+    When the user does not request a receipt
+    Then the system does not provide a receipt

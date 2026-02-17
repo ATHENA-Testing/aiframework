@@ -1,17 +1,17 @@
-JIRA: [Optional: Enter JIRA ID here, e.g., PROJ-123 to pull details automatically]
-
-User Story: [Enter Title Here]
+User Story: ATM Cash Withdrawal
 
 Description:
-As a [role],
-I want to [action],
-So that [benefit]
+As a bank customer,
+I want to withdraw cash from an ATM,
+So that I can have physical currency.
 
 Acceptance Criteria:
-1. [Criteria 1]
-2. [Criteria 2]
-3. [Criteria 3]
+1. The user should be able to insert their card and enter a valid PIN.
+2. The user should be able to select the withdrawal amount.
+3. The system should verify if the user has sufficient balance.
+4. The system should dispense the cash and update the account balance.
+5. The user should receive a receipt if requested.
 
 Test Data:
-- [Key]: [Value]
-- [Key]: [Value]
+- PIN: 1234
+- Amount: 500

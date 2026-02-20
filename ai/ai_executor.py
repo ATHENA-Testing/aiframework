@@ -23,6 +23,13 @@ class AIExecutor:
         prompt = PromptLibrary.CODE_REVIEW_PROMPT.format(code=code)
         return self.provider.generate(prompt)
 
+    def execute_assert(self, condition: str, context_data: str) -> str:
+        if not self.enabled:
+            return "AI is disabled."
+        
+        prompt = f"Act as a QA Engineer. Verify the following condition: {condition}. Context: {context_data}. Return 'PASS' or 'FAIL' with a brief reason."
+        return self.provider.generate(prompt)
+
     def suggest_method(self, description: str) -> str:
         if not self.enabled or self.mode not in ['assist', 'generate']:
             return "AI Assistance is disabled."
@@ -35,4 +42,21 @@ class AIExecutor:
             return "AI Generation is disabled."
         
         prompt = PromptLibrary.STEP_GENERATION_PROMPT.format(feature_text=feature_text)
+        return self.provider.generate(prompt)
+
+    def get_quick_fix(self, file_path: str, error_message: str) -> str:
+        if not self.enabled:
+            return "AI is disabled."
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+        except Exception as e:
+            return f"Failed to read file for quick fix: {str(e)}"
+            
+        prompt = PromptLibrary.QUICK_FIX_PROMPT.format(
+            file_path=file_path,
+            error_message=error_message,
+            file_content=content
+        )
         return self.provider.generate(prompt)

@@ -117,3 +117,18 @@ class PromptLibrary:
     4. Consider the context from the Parent Epic if provided.
     5. Format the output as a clean text requirement suitable for BDD generation.
     """
+
+    QUICK_FIX_PROMPT = """
+    You are an expert Automation Debugger. An error occurred in the following file:
+    
+    FILE PATH: {file_path}
+    ERROR MESSAGE: {error_message}
+    FILE CONTENT:
+    {file_content}
+    
+    REQUIREMENTS:
+    1. Analyze the error and the code.
+    2. Provide a concise explanation of the fix.
+    3. Provide the corrected code for the entire file or the specific section that needs fixing.
+    4. Return ONLY the explanation and the corrected code in Markdown format.
+    """

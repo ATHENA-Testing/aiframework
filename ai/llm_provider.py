@@ -12,7 +12,11 @@ class OpenAIProvider(LLMProvider):
     def __init__(self, api_key, model, base_url="https://api.openai.com/v1"):
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY")
         self.model = model
-        if base_url and "api.openai.com" not in base_url:
+        # If base_url is explicitly provided in config and is not the default placeholder, use it.
+        # Otherwise, fall back to environment variable or default OpenAI URL.
+        # Use the provided base_url if it's not the default placeholder.
+        # If it's the default OpenAI URL, we still use it unless an environment variable override exists.
+        if base_url and "your_api_key_here" not in base_url:
             self.base_url = base_url
         else:
             self.base_url = os.environ.get("OPENAI_BASE_URL", "https://api.openai.com/v1")
@@ -39,16 +43,26 @@ class OpenAIProvider(LLMProvider):
 
 class OllamaProvider(LLMProvider):
     def __init__(self, host, model):
-        self.host = host
+        self.host = host.rstrip('/') if host else "http://localhost:11434"
         self.model = model
 
     def generate(self, prompt: str) -> str:
         try:
+            # Check if host is reachable
             payload = {"model": self.model, "prompt": prompt, "stream": False}
-            response = requests.post(f"{self.host}/api/generate", json=payload)
+            url = f"{self.host}/api/generate"
+            
+            # Add a short timeout to avoid hanging
+            response = requests.post(url, json=payload, timeout=10)
+            
+            if response.status_code == 404:
+                return f"Error: Ollama endpoint not found at {url}. Please ensure Ollama is running."
+            
             response.raise_for_status()
             data = response.json()
             return data.get('response', f"Unexpected response format: {json.dumps(data)}")
+        except requests.exceptions.ConnectionError:
+            return f"Error: Could not connect to Ollama at {self.host}. Is it running?"
         except Exception as e:
             return f"Failed to generate response from Ollama: {str(e)}"
 

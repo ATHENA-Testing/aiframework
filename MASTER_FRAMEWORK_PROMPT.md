@@ -36,12 +36,17 @@ Generate a production-ready, enterprise-grade AI-Enabled Python Selenium BDD Hyb
 - **Sync:** Automatically updates code when `.feature` steps are modified.
 - **Smart Prompts:** Replace `# AI: [prompt]` in Page Classes with robust, reusable Selenium logic.
 
-### 4. Enterprise-Grade Robustness
+### 4. AI-Driven Debugging & Assertions
+- **Quick Fix:** Automated debugging utility (`ai_quick_fix.py`) with cross-platform scripts (`ai_quick_fix.bat`, `ai_quick_fix.sh`) that analyzes errors in any framework file and suggests code corrections.
+- **AI Assert:** Intelligent validation of complex test conditions using LLM reasoning.
+- **AI Review:** Automated code review for PEP8 compliance and Selenium best practices.
+
+### 5. Enterprise-Grade Robustness
 - **Conditional Execution:** Toggles for JIRA and Git in `framework.yaml` to ignore dependencies when disabled.
 - **Multi-line Parsing:** Robust parsing of User Stories, ACs, and Descriptions from text files.
-- **Error Handling:** Global try-except blocks with smooth exit mechanisms to prevent framework crashes.
+- **Error Handling:** Global try-except blocks with smooth exit mechanisms and AI-assisted error reporting.
 
-### 5. RAG-Enabled Knowledge Base
+### 6. RAG-Enabled Knowledge Base
 - **Storage:** `knowledge_base/` for domain documentation.
 - **Usage:** Semantic search injects project-specific rules and selectors into LLM prompts.
 

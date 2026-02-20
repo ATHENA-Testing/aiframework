@@ -55,6 +55,29 @@ The `user_story.txt` parser is built for real-world requirements.
 | **AI Generation** | `scripts\ai_generate.bat` | `./scripts/ai_generate.sh` |
 | **Run Tests** | `scripts\run_bdd.bat` | `./scripts/run_bdd.sh` |
 | **Allure Report** | `scripts\generate_allure.bat` | `./scripts/generate_allure.sh` |
+| **AI Quick Fix** | `scripts\ai_quick_fix.bat <file> "<error>"` | `./scripts/ai_quick_fix.sh <file> "<error>"` |
+
+---
+
+## AI Features Guide
+
+### 1. AI Assert & Review
+The framework supports AI-driven code review and assertions. To enable these, configure `config/ai.yaml`:
+- **Mode: `review`**: Automatically reviews generated code for PEP8 and Selenium best practices.
+- **Mode: `assist`**: Provides method suggestions during development.
+
+### 2. AI Quick Fix
+When an error occurs in any framework file (Feature, Step, Page, or Requirement), use the Quick Fix tool:
+```bash
+python3 ai/ai_quick_fix.py pages/login_page.py "NoSuchElementException: Message: no such element"
+```
+The AI will analyze the file and the error, then provide a corrected version of the code.
+
+### 3. Parameterizing AI in `ai.yaml`
+You can switch between different LLM providers easily:
+- **OpenAI (Default)**: Set `provider: "openai"` and provide your `api_key`.
+- **Ollama**: Set `provider: "ollama"` and ensure Ollama is running on `http://localhost:11434`.
+- **Azure**: Set `provider: "azure"` and provide `endpoint` and `api_key`.
 
 ---
 

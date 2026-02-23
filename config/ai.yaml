@@ -1,0 +1,27 @@
+ai:
+  enabled: true
+  mode: "generate"   # off | assist | generate | review
+  provider: "openai" # openai | azure | ollama | gemini | groq | custom
+  model: "gpt-4o-mini"
+  version: "latest"
+  api_key: ""
+  base_url: "https://api.openai.com/v1"
+  
+  # Multi-Model Routing (Optional)
+  routing:
+    generation: "openai" # Use OpenAI for complex code generation
+    review: "gemini"     # Use Gemini for cost-effective reviews
+    assertion: "groq"    # Use Groq for fast assertions
+    
+  azure:
+    endpoint: "https://your-endpoint.openai.azure.com/"
+    deployment_name: "your-deployment"
+    
+  ollama:
+    host: "http://localhost:11434"
+    
+  gemini:
+    model: "gemini-1.5-flash"
+    
+  groq:
+    model: "llama3-8b-8192"

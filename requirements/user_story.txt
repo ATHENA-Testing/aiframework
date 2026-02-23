@@ -1,3 +1,10 @@
+### JIRA INTEGRATION ###
+JIRA_KEY: ATH-123
+JIRA_URL: https://your-domain.atlassian.net
+JIRA_API_TOKEN: your_jira_token_here
+JIRA_USER_EMAIL: your_email@example.com
+
+### USER STORY ###
 User Story: ATM Cash Withdrawal
 
 Description:
@@ -5,13 +12,13 @@ As a bank customer,
 I want to withdraw cash from an ATM,
 So that I can have physical currency.
 
-Acceptance Criteria:
+### ACCEPTANCE CRITERIA ###
 1. The user should be able to insert their card and enter a valid PIN.
 2. The user should be able to select the withdrawal amount.
 3. The system should verify if the user has sufficient balance.
 4. The system should dispense the cash and update the account balance.
 5. The user should receive a receipt if requested.
 
-Test Data:
+### TEST DATA ###
 - PIN: 1234
 - Amount: 500

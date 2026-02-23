@@ -54,16 +54,23 @@ class RAGEngine:
         with open(self.chunks_path, 'r') as f:
             self.chunks = f.read().split("\n---CHUNK_SPLIT---\n")
 
-    def query(self, text, top_k=3):
+    def query(self, text, top_k=5):
         if self.index is None or not self.chunks:
             return ""
         
-        query_embedding = self.model.encode([text])
+        # Enhance query for better method matching
+        enhanced_query = f"Selenium Python Page Object method for: {text}"
+        query_embedding = self.model.encode([enhanced_query])
         distances, indices = self.index.search(np.array(query_embedding).astype('float32'), top_k)
         
         results = []
         for i in indices[0]:
             if i != -1 and i < len(self.chunks):
-                results.append(self.chunks[i])
+                chunk = self.chunks[i]
+                # Prioritize existing methods in the prompt
+                if "def " in chunk:
+                    results.append(f"EXISTING METHOD FOUND:\n{chunk}")
+                else:
+                    results.append(chunk)
         
         return "\n\n".join(results)

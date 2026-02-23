@@ -5,30 +5,51 @@ from ai.prompt_library import PromptLibrary
 
 class AIExecutor:
     def __init__(self, config_path="config/ai.yaml"):
-        with open(config_path, 'r') as f:
-            self.config = yaml.safe_load(f)['ai']
-        
+        self.config = self._load_config(config_path)
         self.enabled = self.config.get('enabled', False)
         self.mode = self.config.get('mode', 'off')
-        
-        if self.enabled and self.mode != 'off':
+        self.routing = self.config.get('routing', {})
+        if self.enabled:
             self.provider = LLMFactory.get_provider(self.config)
         else:
             self.provider = None
+
+    def _load_config(self, path):
+        if os.path.exists(path):
+            with open(path, 'r') as f:
+                return yaml.safe_load(f).get('ai', {})
+        return {}
+
+    def _get_provider_for_task(self, task_type):
+        """Returns the provider based on routing configuration or default."""
+        if not self.enabled:
+            return None
+        
+        provider_name = self.routing.get(task_type)
+        if provider_name:
+            temp_config = self.config.copy()
+            temp_config['provider'] = provider_name
+            if provider_name in self.config:
+                temp_config.update(self.config[provider_name])
+            return LLMFactory.get_provider(temp_config)
+        
+        return self.provider
 
     def execute_review(self, code: str) -> str:
         if not self.enabled or self.mode not in ['review', 'generate']:
             return "AI Review is disabled or mode not set to review."
         
+        provider = self._get_provider_for_task('review')
         prompt = PromptLibrary.CODE_REVIEW_PROMPT.format(code=code)
-        return self.provider.generate(prompt)
+        return provider.generate(prompt)
 
     def execute_assert(self, condition: str, context_data: str) -> str:
         if not self.enabled:
             return "AI is disabled."
         
+        provider = self._get_provider_for_task('assertion')
         prompt = f"Act as a QA Engineer. Verify the following condition: {condition}. Context: {context_data}. Return 'PASS' or 'FAIL' with a brief reason."
-        return self.provider.generate(prompt)
+        return provider.generate(prompt)
 
     def suggest_method(self, description: str) -> str:
         if not self.enabled or self.mode not in ['assist', 'generate']:

@@ -1,90 +1,67 @@
-# AI-Driven Python Selenium BDD Framework (Enterprise Edition)
+# AI-Driven Python Selenium BDD Framework
 
-This framework integrates **Behavior-Driven Development (BDD)** with **Artificial Intelligence** to automate the entire testing lifecycle. It features JIRA automation, global code deduplication, and cross-platform support.
-
-## Framework Architecture
-
-The system uses a **Hybrid Page Object Model (POM)** enhanced by an AI engine that understands your domain through a local knowledge base.
-
-| Component | Technology | Purpose |
-| :--- | :--- | :--- |
-| **BDD Core** | Behave | Test case definition and execution |
-| **Automation** | Selenium 4 | Web browser interaction |
-| **AI Engine** | LLM Factory | Code generation and synchronization |
-| **Context** | FAISS + RAG | Domain-specific knowledge injection |
-| **Integrations** | JIRA & Git | Enterprise workflow automation |
-| **OS Support** | Win/Linux/Mac | Cross-platform execution scripts |
+This enterprise-grade automation framework leverages AI to transform requirements into executable BDD tests. It features a robust `BasePage` architecture, multi-model AI routing, and seamless JIRA integration.
 
 ---
 
-## Key Enterprise Features
+## 🚀 Quick Start
 
-### 1. JIRA-to-Code Automation
-Transform JIRA issues directly into executable code.
-- **Input:** Provide a **JIRA ID** (e.g., `JIRA: PROJ-123`) in `requirements/user_story.txt`.
-- **Fetch:** The framework pulls Summary, Description, Acceptance Criteria (AC), and Epic details.
-- **Generate:** AI analyzes the ACs to generate feature files and robust Page Object methods.
+### 1. Prerequisites
+- **Python:** 3.10 or higher.
+- **Dependencies:** Run `pip install -r requirements.txt`.
+- **AI Configuration:** Update `config/ai.yaml` with your API keys (OpenAI, Gemini, or Groq).
 
-### 2. Intelligent Global Deduplication
-The AI engine acts as a "smart architect" to prevent redundant code.
-- **Scan:** Scans all existing feature steps and page methods globally.
-- **Reuse:** If a "Login" or "Navigation" flow already exists, the AI reuses those assets instead of duplicating them for new requirements.
+### 2. Execution Commands
 
-### 3. Conditional Execution Toggles
-Manage enterprise dependencies easily via `config/framework.yaml`.
-- **Toggles:** Set `jira: enabled: false` or `git: enabled: false` to skip those integrations.
-- **Robustness:** The AI engine intelligently ignores these methods and dependencies when disabled, ensuring the framework runs smoothly in any environment.
-
-### 4. Robust Requirement Parsing
-The `user_story.txt` parser is built for real-world requirements.
-- **Multi-line Support:** Seamlessly handles multi-line Summary, Description, and Acceptance Criteria without errors.
-- **Variable Mapping:** Automatically maps test data to generated methods.
-
----
-
-## Execution Guide
-
-### Environment Setup
-1.  **Install Python:** Python 3.10 or higher.
-2.  **Dependencies:** Run `pip install -r requirements.txt`.
-3.  **AI Configuration:** Update `config/ai.yaml` with your API keys.
-
-### Execution Commands
 | Task | Windows (.bat) | Linux/Mac (.sh) |
 | :--- | :--- | :--- |
 | **AI Generation** | `scripts\ai_generate.bat` | `./scripts/ai_generate.sh` |
-| **Run Tests** | `scripts\run_bdd.bat` | `./scripts/run_bdd.sh` |
-| **Allure Report** | `scripts\generate_allure.bat` | `./scripts/generate_allure.sh` |
+| **Run BDD Tests** | `scripts\run_bdd.bat` | `./scripts/run_bdd.sh` |
 | **AI Quick Fix** | `scripts\ai_quick_fix.bat <file> "<error>"` | `./scripts/ai_quick_fix.sh <file> "<error>"` |
+| **Allure Report** | `scripts\generate_allure.bat` | `./scripts/generate_allure.sh` |
 
 ---
 
-## AI Features Guide
+## 🧠 AI Features Guide
 
-### 1. AI Assert & Review
-The framework supports AI-driven code review and assertions. To enable these, configure `config/ai.yaml`:
-- **Mode: `review`**: Automatically reviews generated code for PEP8 and Selenium best practices.
-- **Mode: `assist`**: Provides method suggestions during development.
+### 1. Multi-Model Strategy & Free-Tier Support
+The framework supports **Smart Routing** to optimize performance and cost. Configure this in `config/ai.yaml`:
+- **OpenAI (Default):** Best for complex code generation.
+- **Google Gemini:** Cost-effective for code reviews and documentation.
+- **Groq (Llama 3):** Ultra-fast for assertions and simple logic.
 
-### 2. AI Quick Fix
-When an error occurs in any framework file (Feature, Step, Page, or Requirement), use the Quick Fix tool:
-```bash
-python3 ai/ai_quick_fix.py pages/login_page.py "NoSuchElementException: Message: no such element"
+### 2. AI Quick Fix & Assertions
+- **Quick Fix:** Automatically debugs errors in Feature files, Step Definitions, or Page Classes.
+- **AI Assert:** Use `execute_assert(condition, context)` in your steps for intelligent validation of complex UI states.
+
+### 3. JIRA-to-BDD Flow
+Include JIRA details in `requirements/user_story.txt` to fetch requirements directly:
+```text
+JIRA_KEY: ATH-123
+JIRA_URL: https://your-domain.atlassian.net
 ```
-The AI will analyze the file and the error, then provide a corrected version of the code.
-
-### 3. Parameterizing AI in `ai.yaml`
-You can switch between different LLM providers easily:
-- **OpenAI (Default)**: Set `provider: "openai"` and provide your `api_key`.
-- **Ollama**: Set `provider: "ollama"` and ensure Ollama is running on `http://localhost:11434`.
-- **Azure**: Set `provider: "azure"` and provide `endpoint` and `api_key`.
 
 ---
 
-## Technical & Hardware Requirements
+## 🏗️ Architecture: Enhanced BasePage
 
-- **Hardware:** Minimum 8GB RAM (16GB for local RAG) and a Dual-core CPU.
-- **Drivers:** Latest Chrome, Firefox, or Edge with corresponding WebDrivers.
-- **AI Access:** Valid API keys for cloud providers or local Ollama instance.
+All Page Objects must extend the `BasePage` class to leverage these reusable methods:
 
-For a detailed technical blueprint, refer to the `MASTER_FRAMEWORK_PROMPT.md`.
+| Category | Reusable Methods |
+| :--- | :--- |
+| **Mouse Actions** | `click`, `double_click`, `right_click`, `hover`, `drag_and_drop` |
+| **Input & Keys** | `enter_text`, `get_text`, `press_key`, `select_all_and_delete` |
+| **JavaScript** | `js_click`, `scroll_to_element`, `js_execute` |
+| **Dropdowns** | `select_by_visible_text`, `select_by_value`, `select_by_index` |
+| **Reporting** | `take_screenshot`, `attach_screenshot_to_allure` |
+
+---
+
+## 🛠️ Implementation Steps for New Requirements
+
+1.  **Define Requirement:** Add a new `.txt` file in the `requirements/` folder (or update `user_story.txt`).
+2.  **Run AI Generation:** Execute `scripts/ai_generate.sh`. The AI will:
+    - Search the **RAG Knowledge Base** for existing `BasePage` methods.
+    - Generate a `.feature` file, Step Definitions, and a Page Class.
+3.  **Review & Refine:** Use `scripts/ai_quick_fix.sh` if any generation errors occur.
+4.  **Execute:** Run your tests using `scripts/run_bdd.sh` and view the Allure report.

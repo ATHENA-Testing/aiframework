@@ -28,7 +28,15 @@ class PromptLibrary:
     {rag_context}
 
     CONTEXT:
-    - Base Class Methods Available: click(locator), enter_text(locator, text), get_text(locator), is_displayed(locator), open_url(url)
+    - Base Class Methods Available: 
+        - click(locator), double_click(locator), right_click(locator), js_click(locator)
+        - enter_text(locator, text), get_text(locator), get_attribute(locator, attribute)
+        - select_by_visible_text(locator, text), select_by_value(locator, value), select_by_index(locator, index)
+        - hover(locator), drag_and_drop(source_locator, target_locator), press_key(locator, key)
+        - scroll_to_element(locator), js_execute(script, *args)
+        - is_displayed(locator), is_enabled(locator), is_selected(locator)
+        - take_screenshot(name), attach_screenshot_to_allure(name)
+        - open_url(url), switch_to_frame(locator), switch_to_default_content(), switch_to_window(handle)
     - ALL EXISTING PAGE METHODS IN FRAMEWORK: {existing_methods}
     - Target Action: {action_description}
     
@@ -95,7 +103,15 @@ class PromptLibrary:
     
     PROMPT: {user_prompt}
     CONTEXT:
-    - Base Class Methods: click, enter_text, get_text, is_displayed, open_url
+    - Base Class Methods: 
+        - click, double_click, right_click, js_click
+        - enter_text, get_text, get_attribute, select_all_and_delete
+        - select_by_visible_text, select_by_value, select_by_index
+        - hover, drag_and_drop, press_key
+        - scroll_to_element, js_execute
+        - is_displayed, is_enabled, is_selected
+        - take_screenshot, attach_screenshot_to_allure
+        - open_url, switch_to_frame, switch_to_default_content, switch_to_window
     - Existing Page Methods: {existing_methods}
     
     REQUIREMENTS:

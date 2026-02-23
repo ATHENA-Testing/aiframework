@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 from base.base_page import BasePage
 
 class ExamplePage(BasePage):
@@ -12,9 +13,8 @@ class ExamplePage(BasePage):
 
     def search_for(self, term):
         self.enter_text(self.SEARCH_BOX, term)
-        # Some sites use enter key instead of button
-        from selenium.webdriver.common.keys import Keys
-        self.driver.find_element(*self.SEARCH_BOX).send_keys(Keys.RETURN)
+        # Use the new press_key method from BasePage
+        self.press_key(self.SEARCH_BOX, Keys.RETURN)
 
     def get_results_text(self):
         return self.get_text(self.RESULT_STATS)

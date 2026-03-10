@@ -1,24 +1,9 @@
-### JIRA INTEGRATION ###
-JIRA_KEY: ATH-123
-JIRA_URL: https://your-domain.atlassian.net
-JIRA_API_TOKEN: your_jira_token_here
-JIRA_USER_EMAIL: your_email@example.com
-
 ### USER STORY ###
-User Story: ATM Cash Withdrawal
+UserStory: As a user, I want to order Biryani from a food delivery app by applying filters such as restaurant distance, rating, and discount availability so that I only see the best nearby value-for-money options.
 
-Description:
-As a bank customer,
-I want to withdraw cash from an ATM,
-So that I can have physical currency.
+Description: The system should allow the user to search for 'Biryani' and automatically filter the restaurant results based on three mandatory criteria: Restaurant must be within 5 km radius from the user location.
 
 ### ACCEPTANCE CRITERIA ###
-1. The user should be able to insert their card and enter a valid PIN.
-2. The user should be able to select the withdrawal amount.
-3. The system should verify if the user has sufficient balance.
-4. The system should dispense the cash and update the account balance.
-5. The user should receive a receipt if requested.
+AC1: Filtered Results Display ,Given the user has set a valid delivery location,And searches for 'Biryani',When the system fetches restaurant results,Then only restaurants that satisfy all conditions below must be shown: Distance within 5 km
 
-### TEST DATA ###
-- PIN: 1234
-- Amount: 500
+

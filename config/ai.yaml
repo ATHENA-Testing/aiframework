@@ -1,27 +1,56 @@
 ai:
   enabled: true
-  mode: "generate"   # off | assist | generate | review
-  provider: "openai" # openai | azure | ollama | gemini | groq | custom
-  model: "gpt-4o-mini"
+  mode: "generate"                 # off | assist | generate | review
+
+  # ---- LLM Provider (Primary) ----
+  provider: "ollama"               # ollama | openai | azure | gemini | groq | custom
+  model: "llama2"           # <-- LLM served by Ollama (NOT the embedding model)
   version: "latest"
-  api_key: ""
-  base_url: "https://api.openai.com/v1"
-  
-  # Multi-Model Routing (Optional)
+
+  # Robust local-inference settings (match ai_executor / adapter)
+  timeout_sec: 6000                 # long timeout for local models
+  retries: 5
+  backoff: 2.0
+
+  # Prefer using the environment variable for Ollama host.
+  # The adapter reads OLLAMA_HOST and defaults to http://127.0.0.1:11434
+  # Keep base_url as a hint only (not required by the adapter).
+  base_url: "${OLLAMA_HOST:http://127.0.0.1:11434}"
+
+  # ---- Multi-Model Routing (Optional) ----
   routing:
-    generation: "openai" # Use OpenAI for complex code generation
-    review: "gemini"     # Use Gemini for cost-effective reviews
-    assertion: "groq"    # Use Groq for fast assertions
-    
+    generation: "ollama"
+    review: "ollama"
+    assertion: "ollama"
+
+  # ---- Optional per-provider overrides (kept for future use) ----
+  ollama:
+    host: "${OLLAMA_HOST:http://127.0.0.1:11434}"
+    model: "llama2:latest"
+    timeout_sec: 6000
+    retries: 5
+    backoff: 2.0
+
+  openai:
+    api_key: "${OPENAI_API_KEY:}"
+    model: "gpt-4o-mini"
+
   azure:
     endpoint: "https://your-endpoint.openai.azure.com/"
     deployment_name: "your-deployment"
-    
-  ollama:
-    host: "http://localhost:11434"
-    
+
   gemini:
+    api_key: "${GEMINI_API_KEY:}"
     model: "gemini-1.5-flash"
-    
+
   groq:
+    api_key: "${GROQ_API_KEY:}"
     model: "llama3-8b-8192"
+
+# ---- Embeddings / RAG (separate from LLM) ----
+embedding:
+  provider: "sentence-transformers"
+  model: "all-MiniLM-L6-v2"   # <-- embedding model (valid on HF)
+  device: "cpu"                                     # set "cuda" if you have GPU
+  cache_dir: "./.cache/hf"                          # optional cache path
+  token_env: "HF_TOKEN"                             # set HF_TOKEN env for higher rate limits

@@ -1,6 +1,0 @@
-selenium
-behave
-pyyaml
-webdriver-manager
-allure-behave
-requests

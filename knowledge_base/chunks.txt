@@ -1,3 +1,641 @@
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+### BasePage Reusable Methods (Selenium & Python) ###
+---CHUNK_SPLIT---
+The following methods are available in the `BasePage` class and should be used by all Page Objects:
+---CHUNK_SPLIT---
+--- Click Actions ---
+- `click(locator)`: Standard click on an element.
+- `double_click(locator)`: Double click using ActionChains.
+- `right_click(locator)`: Right click (context click) using ActionChains.
+- `js_click(locator)`: Click using JavaScript (useful for hidden or overlapping elements).
+---CHUNK_SPLIT---
+--- Input Actions ---
+- `enter_text(locator, text)`: Clears the field and enters text.
+- `get_text(locator)`: Retrieves the visible text of an element.
+- `get_attribute(locator, attribute)`: Retrieves a specific attribute value (e.g., 'value', 'href').
+- `select_all_and_delete(locator)`: Uses Ctrl+A and Delete to clear a field.
+---CHUNK_SPLIT---
+--- Select (Dropdown) Actions ---
+- `select_by_visible_text(locator, text)`: Selects an option by its visible text.
+- `select_by_value(locator, value)`: Selects an option by its 'value' attribute.
+- `select_by_index(locator, index)`: Selects an option by its index.
+---CHUNK_SPLIT---
+--- Mouse & Keyboard Actions ---
+- `hover(locator)`: Moves the mouse over an element.
+- `drag_and_drop(source_locator, target_locator)`: Drags an element to a target.
+- `press_key(locator, key)`: Sends a specific key (e.g., Keys.ENTER, Keys.TAB).
+---CHUNK_SPLIT---
+--- JavaScript & Scrolling ---
+- `scroll_to_element(locator)`: Scrolls the element into view using JS.
+- `js_execute(script, *args)`: Executes custom JavaScript.
+---CHUNK_SPLIT---
+--- Verification & Reporting ---
+- `is_displayed(locator)`: Returns True if the element is visible.
+- `is_enabled(locator)`: Returns True if the element is enabled.
+- `is_selected(locator)`: Returns True if the element is selected.
+- `take_screenshot(name)`: Saves a screenshot to 'reports/screenshots/'.
+- `attach_screenshot_to_allure(name)`: Captures and attaches a screenshot to the Allure report.
+---CHUNK_SPLIT---
+--- Window & Frame Actions ---
+- `switch_to_frame(locator)`: Switches focus to an iframe.
+- `switch_to_default_content()`: Switches focus back to the main document.
+- `switch_to_window(window_handle)`: Switches focus to a specific window/tab.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
+# E-commerce Domain Knowledge
+---CHUNK_SPLIT---
+## Login Rules
+- Usernames must be valid email addresses.
+- Passwords must be at least 8 characters and include a special character.
+- After 3 failed attempts, the account is locked for 15 minutes.
+---CHUNK_SPLIT---
+## Element Selectors (Preferred)
+- Use `data-testid` attributes whenever available.
+- For the login button, use `[data-testid='login-submit']`.
+- For the search bar, use `id='search-input-main'`.
+---CHUNK_SPLIT---
+## Common Workflows
+1. **Search to Checkout**: User searches for item -> adds to cart -> goes to checkout -> enters payment -> confirms order.
+2. **Account Registration**: User clicks signup -> enters details -> verifies email -> login.
+---CHUNK_SPLIT---
 # E-commerce Domain Knowledge
 ---CHUNK_SPLIT---
 ## Login Rules

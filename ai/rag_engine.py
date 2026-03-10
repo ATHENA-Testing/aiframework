@@ -5,7 +5,7 @@ import faiss
 from sentence_transformers import SentenceTransformer
 
 class RAGEngine:
-    def __init__(self, model_name='all-MiniLM-L6-v2', knowledge_dir='knowledge_base'):
+    def __init__(self, model_name='sentence-transformers/all-MiniLM-L6-v2', knowledge_dir='knowledge_base'):
         self.model = SentenceTransformer(model_name)
         self.knowledge_dir = knowledge_dir
         self.index = None
